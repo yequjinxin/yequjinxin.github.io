@@ -1,107 +1,989 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title></title>
-<link rel="shortcut icon" href="https://yequjinxin.github.io/favicon.ico?v=1587546441316">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://yequjinxin.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title=" - Atom Feed" href="https://yequjinxin.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="迷宫">
+<meta name="description" content="你来时，花月正春风">
+<meta name="theme-color" content="#000">
+<title>迷宫</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1589298002273">
+<link rel="stylesheet" href="/media/css/gemini.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/androidstudio.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
 
 
 
-    <meta name="description" content="你来时，花月正春风" />
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://yequjinxin.github.io">
-  <img class="avatar" src="https://yequjinxin.github.io/images/avatar.png?v=1587546441316" alt="">
-  </a>
-  <h1 class="site-title">
-    
-  </h1>
-  <p class="site-description">
-    你来时，花月正春风
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
 
+
+  <meta name="description" content="你来时，花月正春风">
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
     
+<div class="gemini">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>迷宫</span>
+            </a>  
+          
+        </div>
         
+          <p class="subtitle">你来时，花月正春风</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  首页
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item nav-item-active">
+              
+              
+                <a href="/archives/" target="_self">
+                  归档
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tags/" target="_self">
+                  标签
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about/" target="_self">
+                  关于
+                </a>
+              
+            </li>
+          
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
 
-<div class="archives-container">
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
   
-    <h2 class="year">2018</h2>
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout  gemini">
+      <div class="section-layout-wrapper">
+        <div id="sidebarMeta" class="sidebar">
+    
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name"></p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+  
+  
+
+  
+
+
+</div>
+</div>
+<script>
+  let sidebarMeta = document.querySelector('#sidebarMeta');
+  let scheme = 'gemini';
+  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
+  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
+    document.addEventListener('scroll', function(e) {
+      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
+        sidebarWrapper.classList.add('home-sidebar-fixed')
+      } else {
+        sidebarWrapper.classList.remove('home-sidebar-fixed')
+      }
+    });
+  }
+  </script>
+        <div class="section-box box-shadow-wrapper">
+          <section class="section archives-section bg-color posts-expand">
+            
+
+<div class="bg-color">
+  <div class="archive-timeline-box">
+    <div class="archive-timeline-title">
+      
+        <h2 class="language" data-lan="archives" data-count="2">非常好！目前共计2篇日志，继续努力！</h2>
+      
+    </div>
     
       
-        <a href="https://yequjinxin.github.io/post/hello-gridea/" class="post">
-          <h2 class="post-title">
-            Hello Gridea
-          </h2>
-          <div class="time">2018-12-12</div>
-        </a>
+      
+        <div class="node-title">
+          <h2 class="tag-year">2020</h2>
+        </div>    
+        
+      
+      <a href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              05-12
+              <small>select 网络编程</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
+      
+        <div class="node-title">
+          <h2 class="tag-year">2018</h2>
+        </div>    
+        
+      
+      <a href="https://yequjinxin.github.io/post/hello-gridea/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              12-12
+              <small>Hello Gridea</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+  </div>
+  
+<div class="page bg-color">
+  <ul class="pagination-ul">
+    
+    
+      
+        <li class="pagination-li pagination-active">
+            <a href="/archives/page/../">
+              1
+            </a>
+        </li>
       
     
-  
-</div>
-
     
-        <div class="pagination-container">
-  
-  
+  </ul>
+</div>
 </div>
 
-    
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://yequjinxin.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+          </section>
+        </div>
       </div>
     </div>
-  </body>
+    <div class="footer-box">
+  <footer class="footer">
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
+    </div>
+    <div class="poweredby">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+  </footer>
+  
+  
+  <div class="gemini back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+  back2TopText = document.querySelector('#back_to_top_text'),
+  drawerBox = document.querySelector('#drawer_box'),
+  rightSideBar = document.querySelector('.sidebar'),
+  viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+   
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function(e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+  
+  window.addEventListener('scroll', function(e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  
+  let hasCacu = false;
+  window.onresize = function() {
+    if (window.width > 991) {
+      calcuHeight();
+    } else {
+      hasCacu = false;
+    }
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+  
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function() {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, transitionDir,{ });
+          }
+        })
+        window.Velocity(viewport, openProp,{
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp ,{
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target","_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch.addEventListener('click', function() {
+    document.querySelector('#search_mask').style = ''
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+</script>
+  </div>
+</body>
+
+  <div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/"" data-c="
+          &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt; // memset
+#include &amp;lt;sys/types.h&amp;gt; // 
+#include &amp;lt;netinet/in.h&amp;gt; // 某些结构体声明、宏定义，如：struct sockaddr_in、INADDR_ANY、htons
+#include &amp;lt;arpa/inet.h&amp;gt; // 提供IP地址转换函数 inet_addr,inet_aton
+#include &amp;lt;sys/time.h&amp;gt;
+#include &amp;lt;sys/socket.h&amp;gt; // socket 相关函数声明
+#include &amp;lt;sys/select.h&amp;gt; // struct fd_set 以及相关函数，select 函数
+#include &amp;lt;unistd.h&amp;gt; // read write close
+#include &amp;lt;map&amp;gt;
+
+// C++11中增加了std::bind(_Fp &amp;amp;&amp;amp;__f, _BoundArgs &amp;amp;&amp;amp;__bound_args...) 函数，
+// 可以用该函数绑定函数指针， 当在C++类中添加了using namespace std;之后，
+// 如果你想调用 socket.h 中的 bind 方法则会出现问题, 使得 bind 函数调用不是你想要的行为。
+// 解决方案是在使用 socket.h 的 bind 函数的类中不要使用 using namespace std。
+// using namespace std;
+
+const int SERVER_PORT = 8080;
+const char SERVER_IP[] = &amp;quot;127.0.0.1&amp;quot;;
+const int FD_SIZE = 1024;
+const int RECV_SIZE = 1024;
+const int SEND_SIZE = 1040;
+
+int main(int argc, char **argv)
+{
+    int server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    // 每次都必须检查 socket setsockopt bind listen accept 等函数是否返回 -1
+    if (server_fd &amp;lt; 0)
+    {
+        perror(&amp;quot;socket error&amp;quot;);
+        exit(1);
+    }
+    printf(&amp;quot;server fd: %d \n&amp;quot;, server_fd);
+
+    // 当你在某个端口绑定了套接字，在接下来的30秒内，操作系统不允许任何程序再绑定它，包括上一次绑定这个端口的程序。
+    int opt = 1;
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, (const char*) &amp;amp;opt, sizeof(opt)) == -1)
+    {
+        perror(&amp;quot;setsockopt&amp;quot;);
+        exit(1);
+    }
+
+    struct sockaddr_in addr_server;
+    memset(&amp;amp;addr_server, 0, sizeof(addr_server)); // 每个字节都用0填充
+    addr_server.sin_family = AF_INET; // 使用IPv4地址，和 socket 函数第一个参数保持一致
+    // INADDR_ANY 等价于 inet_addr(&amp;quot;0.0.0.0&amp;quot;)，即表示本机的所有网卡的 IP 地址
+    addr_server.sin_addr.s_addr = inet_addr(SERVER_IP); // 具体的IP地址
+    addr_server.sin_port = htons(SERVER_PORT);
+
+    if (bind(server_fd, (struct sockaddr *) &amp;amp;addr_server, sizeof(addr_server)) &amp;lt; 0)
+    {
+        perror(&amp;quot;bind failed&amp;quot;);
+        exit(1);
+    }
+
+    if (listen(server_fd, 5) &amp;lt; 0) // 请求队列为 5
+    {
+        perror(&amp;quot;listen failed&amp;quot;);
+        exit(1);
+    }
+
+    fd_set fdsr;
+    int fd[FD_SIZE] = {0};
+    int maxsock = server_fd;
+    char recvBuf[RECV_SIZE + 1];
+    char sendBuf[SEND_SIZE + 1];
+    std::map&amp;lt;int, struct sockaddr_in&amp;gt; mapClients;
+
+    // client
+    struct sockaddr_in addr_client;
+    socklen_t sin_size = sizeof(addr_client);
+    int client_fd;
+
+    // 将 server 放进 fd[]
+    fd[0] = server_fd;
+
+    while (1)
+    {
+        // 清空 fdsr
+        FD_ZERO(&amp;amp;fdsr);
+
+        // 初始化 fdsr
+        for (int i = 0; i &amp;lt; FD_SIZE; i++)
+        {
+            if (fd[i] != 0)
+            {
+                FD_SET(fd[i], &amp;amp;fdsr);
+            }
+        }
+
+        // select 超时时间
+        struct timeval tv;
+        tv.tv_sec = 10;
+        tv.tv_usec = 0;
+
+        // fdsr 在请求前是：需要监听的 fd；请求后则变成了：产生变更的fd；而后者是前者的子集。
+        // 在执行 select 前 fdsr 都要重新清空再进行赋值。
+        int ret = select(maxsock + 1, &amp;amp;fdsr, NULL, NULL, &amp;amp;tv);
+        printf(&amp;quot;select: %d \n&amp;quot;, ret);
+
+        if (ret == -1)
+        {
+            perror(&amp;quot;select error!&amp;quot;);
+            exit(1);
+        }
+        else if (ret == 0)
+        {
+            continue;
+        }
+
+        // check every fd in the fdset
+        for (int i = 0; i &amp;lt; FD_SIZE; i++)
+        {
+            if (fd[i] == 0)
+            {
+                continue;
+            }
+
+            if (FD_ISSET(fd[i], &amp;amp;fdsr))
+            {
+                printf(&amp;quot;checked fd is: %d\n&amp;quot;, fd[i]);
+                if (fd[i] == server_fd)
+                {
+                    printf(&amp;quot;and this is a server fd\n&amp;quot;);
+                    client_fd = accept(server_fd, (struct sockaddr *) &amp;amp;addr_client, &amp;amp;sin_size);
+                    if (client_fd == -1)
+                    {
+                        printf(&amp;quot;%d&amp;quot;, server_fd);
+                        perror(&amp;quot;accept error&amp;quot;);
+                    }
+                    printf(&amp;quot;and accepted client fd is: %d\n&amp;quot;, client_fd);
+
+                    for (int i = 0; i &amp;lt; FD_SIZE; i++)
+                    {
+                        // 将新的 fd 放入 fd[]
+                        if (fd[i] == 0)
+                        {
+                            fd[i] = client_fd;
+                            // 下面这三种方式都可以
+                            // mapClients.insert(std::make_pair(client_fd, addr_client));
+                            // mapClients.insert(std::make_pair&amp;lt;int, struct sockaddr_in&amp;gt;((int)client_fd, (struct sockaddr_in)addr_client));
+                            mapClients.insert(std::pair&amp;lt;int, struct sockaddr_in&amp;gt;(client_fd, addr_client));
+                            break;
+                        }
+                    }
+
+                } else {
+                    memset(recvBuf, 0, RECV_SIZE + 1);
+                    memset(sendBuf, 0, SEND_SIZE + 1);
+                    // These calls return the number of bytes received, or -1 if an error occurred.  
+                    // In the event of an error, errno is set to indicate the error.
+                    // When a stream socket peer has performed an orderly shutdown, the
+                    // return value will be 0 (the traditional &amp;quot;end-of-file&amp;quot; return).
+                    ret = recv(fd[i], recvBuf, RECV_SIZE, 0);
+                    if (ret &amp;lt;= 0)
+                    {
+                        printf(&amp;quot;client fd[%d] close\n&amp;quot;, fd[i]);
+                        close(fd[i]);
+                        FD_CLR(fd[i], &amp;amp;fdsr);
+                        mapClients.erase(fd[i]);
+                        fd[i] = 0;
+                    }
+                    else
+                    {
+                        printf(&amp;quot;and this is a client fd\n&amp;quot;);
+                        printf(&amp;quot;and client fd[%d] ip[%s] said: %s\n&amp;quot;,
+                            fd[i], inet_ntoa(mapClients[fd[i]].sin_addr), recvBuf);
+
+                        sprintf(sendBuf, &amp;quot;you said: %s&amp;quot;, recvBuf);
+                        // On success, these calls return the number of bytes sent.  On error,
+                        // -1 is returned, and errno is set appropriately.
+                        if (send(fd[i], sendBuf, SEND_SIZE, 0) == -1)
+                        {
+                            printf(&amp;quot;%d/n&amp;quot;, fd[i]);
+                            perror(&amp;quot;socket send error&amp;quot;);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        // maxsock 取监视文件中最大的文件描述符的值
+        maxsock = server_fd;
+        for (int i = 0; i &amp;lt; FD_SIZE; i++)
+        {
+            if (fd[i] &amp;gt; maxsock)
+            {
+                maxsock = fd[i];
+            }
+        }
+    }
+
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">select 网络编程</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://yequjinxin.github.io/post/about/"" data-c="
+          &lt;blockquote&gt;
+&lt;p&gt;欢迎来到我的小站呀，很高兴遇见你！🤝&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;关于本站&#34;&gt;🏠 关于本站&lt;/h2&gt;
+&lt;h2 id=&#34;博主是谁&#34;&gt;👨‍💻 博主是谁&lt;/h2&gt;
+&lt;h2 id=&#34;兴趣爱好&#34;&gt;⛹ 兴趣爱好&lt;/h2&gt;
+&lt;h2 id=&#34;联系我呀&#34;&gt;📬 联系我呀&lt;/h2&gt;
+">关于</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://yequjinxin.github.io/post/hello-gridea/"" data-c="
+          &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
+✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/getgridea/gridea&#34;&gt;Github&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://gridea.dev/&#34;&gt;Gridea 主页&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;http://fehey.com/&#34;&gt;示例网站&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;特性&#34;&gt;特性👇&lt;/h2&gt;
+&lt;p&gt;📝  你可以使用最酷的 &lt;strong&gt;Markdown&lt;/strong&gt; 语法，进行快速创作&lt;/p&gt;
+&lt;p&gt;🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片&lt;/p&gt;
+&lt;p&gt;🏷️  你可以对文章进行标签分组&lt;/p&gt;
+&lt;p&gt;📋  你可以自定义菜单，甚至可以创建外部链接菜单&lt;/p&gt;
+&lt;p&gt;💻  你可以在 &lt;strong&gt;Windows&lt;/strong&gt;，&lt;strong&gt;MacOS&lt;/strong&gt; 或 &lt;strong&gt;Linux&lt;/strong&gt; 设备上使用此客户端&lt;/p&gt;
+&lt;p&gt;🌎  你可以使用 &lt;strong&gt;𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌&lt;/strong&gt; 或 &lt;strong&gt;Coding Pages&lt;/strong&gt; 向世界展示，未来将支持更多平台&lt;/p&gt;
+&lt;p&gt;💬  你可以进行简单的配置，接入 &lt;a href=&#34;https://github.com/gitalk/gitalk&#34;&gt;Gitalk&lt;/a&gt; 或 &lt;a href=&#34;https://github.com/SukkaW/DisqusJS&#34;&gt;DisqusJS&lt;/a&gt; 评论系统&lt;/p&gt;
+&lt;p&gt;🇬🇧  你可以使用&lt;strong&gt;中文简体&lt;/strong&gt;或&lt;strong&gt;英语&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力&lt;/p&gt;
+&lt;p&gt;🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步&lt;/p&gt;
+&lt;p&gt;🌱 当然 &lt;strong&gt;Gridea&lt;/strong&gt; 还很年轻，有很多不足，但请相信，它会不停向前 🏃&lt;/p&gt;
+&lt;p&gt;未来，它一定会成为你离不开的伙伴&lt;/p&gt;
+&lt;p&gt;尽情发挥你的才华吧！&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;function test() {
+    echo &#39;&amp;quot;hello world&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;😘 Enjoy~&lt;/p&gt;
+">Hello Gridea</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
+
+<input hidden id="copy" />
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+
+
 </html>
