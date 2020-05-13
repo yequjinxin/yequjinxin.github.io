@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yequjinxin.github.io</id>
     <title>迷宫</title>
-    <updated>2020-05-13T14:56:50.257Z</updated>
+    <updated>2020-05-13T15:46:56.201Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yequjinxin.github.io"/>
     <link rel="self" href="https://yequjinxin.github.io/atom.xml"/>
@@ -16,8 +16,7 @@
         <link href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/">
         </link>
         <updated>2020-05-11T17:24:41.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="http://man7.org/linux/man-pages/man2/">man pages</a></p>
-<h4 id="io-模型">I/O 模型</h4>
+        <content type="html"><![CDATA[<h4 id="io-模型">I/O 模型</h4>
 <ul>
 <li>阻塞式IO模型(blocking I/O model)</li>
 <li>非阻塞IO模型(noblocking I/O model)</li>
@@ -32,6 +31,23 @@
 <p>类似于 poll，epoll，kqueue（这些也属于多路复用I/O），这些系统函数会使系统内核不断的轮询用户进程所负责的所有 fd，那么整个进程会被block，当某个 fd 的数据数据准备好了，就通知用户进程（select 就会返回），此时用户进程解除阻塞。这个时候用户进程再调用 read、recv 操作，将数据从 kernel 拷贝到用户进程（这个拷贝过程也是阻塞的）。</p>
 <p>所以，I/O 多路复用的特点就是通过一种机制，一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读写就绪状态，select() 函数就可以返回。</p>
 <p>在 <code>IO multiplexing Model</code> 中，对于每一个 socket，一般都设置成为 <code>non-blocking</code>（参考 demo 中的 socket_nonblock 函数使用），但是，如上图所示，整个用户的 process 其实是一直被 block 的。只不过 process 是被 select 这个函数block，而不是被 socket IO 给 block。</p>
+<h4 id="同步-异步-阻塞-非阻塞">同步、异步、阻塞、非阻塞</h4>
+<blockquote>
+<p>Synchronous is, when we started a function call, the call will not return anything until it gets the result, the function needs to finish everything before it can give anything to us.<br>
+Asynchronous does not need to wait for the function completes its operation, once we call it, it returns immediately without any result, the function uses callback function (or other notification method) to “notify” us to get the value after it completes execution.</p>
+</blockquote>
+<p>同步和异步是对程序代码执行过程的描述。</p>
+<blockquote>
+<p>Unlike synchronous/asynchronous, blocking/non-blocking focuses on the status of the program while waiting for the result from the function call.<br>
+A blocking operation hangs up current thread before it gets the result, in other words, a blocking operation will let the current thread wait for the result returns, even if the target function will use a callback function to notify client side to fetch the result, the thread on the client side will still be blocked until it gets the returned result.<br>
+the non-blocking operation will not hang up the current thread if no result returned immediately.</p>
+</blockquote>
+<p>阻塞和非阻塞是程序的状态。</p>
+<p>为了理解二者的不同，举一个例子。<br>
+一个耗时的操作会影响到软件系统的性能。比如，数据库查询，或者复杂的逻辑计算。这二者的区别是，前者是 IO 操作，后者是 CPU 密集型计算。<br>
+如果程序是同步的，对于进程而言，数据库查询会使进程阻塞，而复杂的逻辑计算则没有阻塞进程，进程依然在努力的完成你的工作，并没有挂起。也就是说同步的并且耗时的程序，不一定会阻塞（hang up）进程。<br>
+这时，可以将同步操作转为异步操作，进程都不会被阻塞了。</p>
+<h4 id="code-example">Code Example</h4>
 <pre><code class="language-c++">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt; // memset
 #include &lt;fcntl.h&gt;
@@ -250,6 +266,11 @@ void socket_nonblock(int s)
 }
 
 </code></pre>
+<hr>
+<p>参考资料</p>
+<ol>
+<li><a href="http://man7.org/linux/man-pages/man2/">man pages</a></li>
+</ol>
 ]]></content>
     </entry>
     <entry>
