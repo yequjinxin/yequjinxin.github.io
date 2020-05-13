@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yequjinxin.github.io</id>
     <title>迷宫</title>
-    <updated>2020-05-13T15:46:56.201Z</updated>
+    <updated>2020-05-13T15:53:19.842Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yequjinxin.github.io"/>
     <link rel="self" href="https://yequjinxin.github.io/atom.xml"/>
@@ -16,7 +16,11 @@
         <link href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/">
         </link>
         <updated>2020-05-11T17:24:41.000Z</updated>
-        <content type="html"><![CDATA[<h4 id="io-模型">I/O 模型</h4>
+        <summary type="html"><![CDATA[<p>本文介绍基于 select 网络编程的基础知识。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文介绍基于 select 网络编程的基础知识。</p>
+<!-- more -->
+<h4 id="io-模型">I/O 模型</h4>
 <ul>
 <li>阻塞式IO模型(blocking I/O model)</li>
 <li>非阻塞IO模型(noblocking I/O model)</li>
