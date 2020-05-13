@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="迷宫">
-<meta name="description" content="你来时，花月正春风">
+<meta name="description" content="技术，游戏，生活">
 <meta name="theme-color" content="#000">
 <title>select 网络编程 | 迷宫</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1589346452854">
+<link rel="shortcut icon" href="/favicon.ico?v=1589365602794">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -73,66 +73,56 @@
           
             
             
-              
-            
             <li class="nav-item ">
               
               
-                <a href="/" target="_self">
-                  首页
-                </a>
+                
+                  <a href="/" target="_self">
+                    <i class="fa fa-home"></i> 首页
+                  </a>
+                
               
             </li>
           
             
             
-              
-            
             <li class="nav-item ">
               
               
-                <a href="/archives/" target="_self">
-                  归档
-                </a>
+                
+                  <a href="/archives/" target="_self">
+                    <i class="fa fa-archive"></i> 归档
+                  </a>
+                
               
             </li>
           
             
             
-              
-            
             <li class="nav-item ">
               
               
-                <a href="/tags/" target="_self">
-                  标签
-                </a>
+                
+                  <a href="/tags/" target="_self">
+                    <i class="fa fa-tags"></i> 标签
+                  </a>
+                
               
             </li>
           
             
             
-              
-            
             <li class="nav-item ">
               
               
-                <a href="/post/about/" target="_self">
-                  关于
-                </a>
+                
+                  <a href="/post/about/" target="_self">
+                    <i class="fa fa-user"></i> 关于
+                  </a>
+                
               
             </li>
           
-          
-            
-              <li class="nav-item ">
-                <a href="/friends/" target="_self">
-                  
-                    <i class="fa fa-address-book"></i> 友情链接
-                  
-                </a>
-              </li>
-            
           
           
             <li id="fa_search" class="nav-item">
@@ -190,7 +180,8 @@
       <div class="sidebar-body gemini" id="sidebar_body">
         
           
-            
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -220,11 +211,217 @@
   </div>
   
     
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://yequjinxin.github.io/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
   
+  
+
   
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#io-%E6%A8%A1%E5%9E%8B">I/O 模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
           
         
       </div>
@@ -327,20 +524,36 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>6<span class="language" data-lan="minute">分钟</span></span>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1003<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1412<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </header>
             <div class="post-body next-md-body" id="post_body">
               <p><a href="http://man7.org/linux/man-pages/man2/">man pages</a></p>
+<h4 id="io-模型">I/O 模型</h4>
+<ul>
+<li>阻塞式IO模型(blocking I/O model)</li>
+<li>非阻塞IO模型(noblocking I/O model)</li>
+<li>多路复用IO模型(I/O multiplexing model)<br>
+上面三个都属于同步 I/O（synchronous I/O）</li>
+<li>信号驱动式IO模型(signal-driven I/O model)</li>
+<li>异步IO式IO模型(asynchronous I/O model)<br>
+上面两个属于异步 I/O（asynchronous I/O）</li>
+</ul>
+<p>select 使用了 I/O多路复用模型（IO multiplexing Model）。</p>
+<figure data-type="image" tabindex="1"><img src="https://yequjinxin.github.io/post-images/1589362415021.png" alt="" loading="lazy"></figure>
+<p>类似于 poll，epoll，kqueue（这些也属于多路复用I/O），这些系统函数会使系统内核不断的轮询用户进程所负责的所有 fd，那么整个进程会被block，当某个 fd 的数据数据准备好了，就通知用户进程（select 就会返回），此时用户进程解除阻塞。这个时候用户进程再调用 read、recv 操作，将数据从 kernel 拷贝到用户进程（这个拷贝过程也是阻塞的）。</p>
+<p>所以，I/O 多路复用的特点就是通过一种机制，一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读写就绪状态，select() 函数就可以返回。</p>
+<p>在 <code>IO multiplexing Model</code> 中，对于每一个 socket，一般都设置成为 <code>non-blocking</code>（参考 demo 中的 socket_nonblock 函数使用），但是，如上图所示，整个用户的 process 其实是一直被 block 的。只不过 process 是被 select 这个函数block，而不是被 socket IO 给 block。</p>
 <pre><code class="language-c++">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt; // memset
+#include &lt;fcntl.h&gt;
 #include &lt;sys/types.h&gt; // 
 #include &lt;netinet/in.h&gt; // 某些结构体声明、宏定义，如：struct sockaddr_in、INADDR_ANY、htons
 #include &lt;arpa/inet.h&gt; // 提供IP地址转换函数 inet_addr,inet_aton
@@ -361,6 +574,8 @@ const char SERVER_IP[] = &quot;127.0.0.1&quot;;
 const int FD_SIZE = 1024;
 const int RECV_SIZE = 1024;
 const int SEND_SIZE = 1040;
+
+void socket_nonblock(int s);
 
 int main(int argc, char **argv)
 {
@@ -393,6 +608,8 @@ int main(int argc, char **argv)
         perror(&quot;bind failed&quot;);
         exit(1);
     }
+
+    socket_nonblock(server_fd);
 
     if (listen(server_fd, 5) &lt; 0) // 请求队列为 5
     {
@@ -469,6 +686,7 @@ int main(int argc, char **argv)
                         printf(&quot;%d&quot;, server_fd);
                         perror(&quot;accept error&quot;);
                     }
+                    socket_nonblock(client_fd);
                     printf(&quot;and accepted client fd is: %d\n&quot;, client_fd);
 
                     for (int i = 0; i &lt; FD_SIZE; i++)
@@ -535,6 +753,21 @@ int main(int argc, char **argv)
     return 0;
 }
 
+
+void socket_nonblock(int s)
+{
+    int flags;
+
+    flags = fcntl(s, F_GETFL, 0);
+    flags |= O_NONBLOCK;
+
+    if (fcntl(s, F_SETFL, flags) &lt; 0) 
+    {
+        perror(&quot;fcntl: nonblock&quot;);
+        return;
+    }
+}
+
 </code></pre>
 
             </div>
@@ -584,7 +817,7 @@ int main(int argc, char **argv)
       Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
     </div>
     <div class="poweredby">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+      
     </div>
   </footer>
   
@@ -802,8 +1035,24 @@ int main(int argc, char **argv)
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/"" data-c="
           &lt;p&gt;&lt;a href=&#34;http://man7.org/linux/man-pages/man2/&#34;&gt;man pages&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;io-模型&#34;&gt;I/O 模型&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;阻塞式IO模型(blocking I/O model)&lt;/li&gt;
+&lt;li&gt;非阻塞IO模型(noblocking I/O model)&lt;/li&gt;
+&lt;li&gt;多路复用IO模型(I/O multiplexing model)&lt;br&gt;
+上面三个都属于同步 I/O（synchronous I/O）&lt;/li&gt;
+&lt;li&gt;信号驱动式IO模型(signal-driven I/O model)&lt;/li&gt;
+&lt;li&gt;异步IO式IO模型(asynchronous I/O model)&lt;br&gt;
+上面两个属于异步 I/O（asynchronous I/O）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;select 使用了 I/O多路复用模型（IO multiplexing Model）。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://yequjinxin.github.io/post-images/1589362415021.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;类似于 poll，epoll，kqueue（这些也属于多路复用I/O），这些系统函数会使系统内核不断的轮询用户进程所负责的所有 fd，那么整个进程会被block，当某个 fd 的数据数据准备好了，就通知用户进程（select 就会返回），此时用户进程解除阻塞。这个时候用户进程再调用 read、recv 操作，将数据从 kernel 拷贝到用户进程（这个拷贝过程也是阻塞的）。&lt;/p&gt;
+&lt;p&gt;所以，I/O 多路复用的特点就是通过一种机制，一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读写就绪状态，select() 函数就可以返回。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;IO multiplexing Model&lt;/code&gt; 中，对于每一个 socket，一般都设置成为 &lt;code&gt;non-blocking&lt;/code&gt;（参考 demo 中的 socket_nonblock 函数使用），但是，如上图所示，整个用户的 process 其实是一直被 block 的。只不过 process 是被 select 这个函数block，而不是被 socket IO 给 block。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;lt;string.h&amp;gt; // memset
+#include &amp;lt;fcntl.h&amp;gt;
 #include &amp;lt;sys/types.h&amp;gt; // 
 #include &amp;lt;netinet/in.h&amp;gt; // 某些结构体声明、宏定义，如：struct sockaddr_in、INADDR_ANY、htons
 #include &amp;lt;arpa/inet.h&amp;gt; // 提供IP地址转换函数 inet_addr,inet_aton
@@ -824,6 +1073,8 @@ const char SERVER_IP[] = &amp;quot;127.0.0.1&amp;quot;;
 const int FD_SIZE = 1024;
 const int RECV_SIZE = 1024;
 const int SEND_SIZE = 1040;
+
+void socket_nonblock(int s);
 
 int main(int argc, char **argv)
 {
@@ -856,6 +1107,8 @@ int main(int argc, char **argv)
         perror(&amp;quot;bind failed&amp;quot;);
         exit(1);
     }
+
+    socket_nonblock(server_fd);
 
     if (listen(server_fd, 5) &amp;lt; 0) // 请求队列为 5
     {
@@ -932,6 +1185,7 @@ int main(int argc, char **argv)
                         printf(&amp;quot;%d&amp;quot;, server_fd);
                         perror(&amp;quot;accept error&amp;quot;);
                     }
+                    socket_nonblock(client_fd);
                     printf(&amp;quot;and accepted client fd is: %d\n&amp;quot;, client_fd);
 
                     for (int i = 0; i &amp;lt; FD_SIZE; i++)
@@ -996,6 +1250,21 @@ int main(int argc, char **argv)
     }
 
     return 0;
+}
+
+
+void socket_nonblock(int s)
+{
+    int flags;
+
+    flags = fcntl(s, F_GETFL, 0);
+    flags |= O_NONBLOCK;
+
+    if (fcntl(s, F_SETFL, flags) &amp;lt; 0) 
+    {
+        perror(&amp;quot;fcntl: nonblock&amp;quot;);
+        return;
+    }
 }
 
 &lt;/code&gt;&lt;/pre&gt;

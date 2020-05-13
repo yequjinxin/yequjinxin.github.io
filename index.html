@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="迷宫">
-<meta name="description" content="你来时，花月正春风">
+<meta name="description" content="技术，游戏，生活">
 <meta name="theme-color" content="#000">
 <title>迷宫</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1589346452854">
+<link rel="shortcut icon" href="/favicon.ico?v=1589365602794">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -71,66 +71,56 @@
           
             
             
-              
-            
             <li class="nav-item nav-item-active">
               
               
-                <a href="/" target="_self">
-                  首页
-                </a>
+                
+                  <a href="/" target="_self">
+                    <i class="fa fa-home"></i> 首页
+                  </a>
+                
               
             </li>
           
             
-            
-              
             
             <li class="nav-item ">
               
               
-                <a href="/archives/" target="_self">
-                  归档
-                </a>
+                
+                  <a href="/archives/" target="_self">
+                    <i class="fa fa-archive"></i> 归档
+                  </a>
+                
               
             </li>
           
             
-            
-              
             
             <li class="nav-item ">
               
               
-                <a href="/tags/" target="_self">
-                  标签
-                </a>
+                
+                  <a href="/tags/" target="_self">
+                    <i class="fa fa-tags"></i> 标签
+                  </a>
+                
               
             </li>
           
             
-            
-              
             
             <li class="nav-item ">
               
               
-                <a href="/post/about/" target="_self">
-                  关于
-                </a>
+                
+                  <a href="/post/about/" target="_self">
+                    <i class="fa fa-user"></i> 关于
+                  </a>
+                
               
             </li>
           
-          
-            
-              <li class="nav-item ">
-                <a href="/friends/" target="_self">
-                  
-                    <i class="fa fa-address-book"></i> 友情链接
-                  
-                </a>
-              </li>
-            
           
           
             <li id="fa_search" class="nav-item">
@@ -203,7 +193,16 @@
   </div>
   
     
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://yequjinxin.github.io/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
   
+  
+
   
 
 
@@ -245,12 +244,12 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>6<span class="language" data-lan="minute">分钟</span></span>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1003<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1412<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
@@ -360,7 +359,7 @@
       Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
     </div>
     <div class="poweredby">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+      
     </div>
   </footer>
   
@@ -578,8 +577,24 @@
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/"" data-c="
           &lt;p&gt;&lt;a href=&#34;http://man7.org/linux/man-pages/man2/&#34;&gt;man pages&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;io-模型&#34;&gt;I/O 模型&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;阻塞式IO模型(blocking I/O model)&lt;/li&gt;
+&lt;li&gt;非阻塞IO模型(noblocking I/O model)&lt;/li&gt;
+&lt;li&gt;多路复用IO模型(I/O multiplexing model)&lt;br&gt;
+上面三个都属于同步 I/O（synchronous I/O）&lt;/li&gt;
+&lt;li&gt;信号驱动式IO模型(signal-driven I/O model)&lt;/li&gt;
+&lt;li&gt;异步IO式IO模型(asynchronous I/O model)&lt;br&gt;
+上面两个属于异步 I/O（asynchronous I/O）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;select 使用了 I/O多路复用模型（IO multiplexing Model）。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://yequjinxin.github.io/post-images/1589362415021.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;类似于 poll，epoll，kqueue（这些也属于多路复用I/O），这些系统函数会使系统内核不断的轮询用户进程所负责的所有 fd，那么整个进程会被block，当某个 fd 的数据数据准备好了，就通知用户进程（select 就会返回），此时用户进程解除阻塞。这个时候用户进程再调用 read、recv 操作，将数据从 kernel 拷贝到用户进程（这个拷贝过程也是阻塞的）。&lt;/p&gt;
+&lt;p&gt;所以，I/O 多路复用的特点就是通过一种机制，一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读写就绪状态，select() 函数就可以返回。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;IO multiplexing Model&lt;/code&gt; 中，对于每一个 socket，一般都设置成为 &lt;code&gt;non-blocking&lt;/code&gt;（参考 demo 中的 socket_nonblock 函数使用），但是，如上图所示，整个用户的 process 其实是一直被 block 的。只不过 process 是被 select 这个函数block，而不是被 socket IO 给 block。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;lt;string.h&amp;gt; // memset
+#include &amp;lt;fcntl.h&amp;gt;
 #include &amp;lt;sys/types.h&amp;gt; // 
 #include &amp;lt;netinet/in.h&amp;gt; // 某些结构体声明、宏定义，如：struct sockaddr_in、INADDR_ANY、htons
 #include &amp;lt;arpa/inet.h&amp;gt; // 提供IP地址转换函数 inet_addr,inet_aton
@@ -600,6 +615,8 @@ const char SERVER_IP[] = &amp;quot;127.0.0.1&amp;quot;;
 const int FD_SIZE = 1024;
 const int RECV_SIZE = 1024;
 const int SEND_SIZE = 1040;
+
+void socket_nonblock(int s);
 
 int main(int argc, char **argv)
 {
@@ -632,6 +649,8 @@ int main(int argc, char **argv)
         perror(&amp;quot;bind failed&amp;quot;);
         exit(1);
     }
+
+    socket_nonblock(server_fd);
 
     if (listen(server_fd, 5) &amp;lt; 0) // 请求队列为 5
     {
@@ -708,6 +727,7 @@ int main(int argc, char **argv)
                         printf(&amp;quot;%d&amp;quot;, server_fd);
                         perror(&amp;quot;accept error&amp;quot;);
                     }
+                    socket_nonblock(client_fd);
                     printf(&amp;quot;and accepted client fd is: %d\n&amp;quot;, client_fd);
 
                     for (int i = 0; i &amp;lt; FD_SIZE; i++)
@@ -772,6 +792,21 @@ int main(int argc, char **argv)
     }
 
     return 0;
+}
+
+
+void socket_nonblock(int s)
+{
+    int flags;
+
+    flags = fcntl(s, F_GETFL, 0);
+    flags |= O_NONBLOCK;
+
+    if (fcntl(s, F_SETFL, flags) &amp;lt; 0) 
+    {
+        perror(&amp;quot;fcntl: nonblock&amp;quot;);
+        return;
+    }
 }
 
 &lt;/code&gt;&lt;/pre&gt;
