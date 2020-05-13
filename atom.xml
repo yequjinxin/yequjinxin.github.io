@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yequjinxin.github.io</id>
     <title>迷宫</title>
-    <updated>2020-05-12T15:41:57.984Z</updated>
+    <updated>2020-05-13T05:07:37.589Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yequjinxin.github.io"/>
     <link rel="self" href="https://yequjinxin.github.io/atom.xml"/>
@@ -16,14 +16,15 @@
         <link href="https://yequjinxin.github.io/post/select-wang-luo-bian-cheng/">
         </link>
         <updated>2020-05-11T17:24:41.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-c++">#include &lt;stdio.h&gt;
+        <content type="html"><![CDATA[<p><a href="http://man7.org/linux/man-pages/man2/">man pages</a></p>
+<pre><code class="language-c++">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt; // memset
 #include &lt;sys/types.h&gt; // 
 #include &lt;netinet/in.h&gt; // 某些结构体声明、宏定义，如：struct sockaddr_in、INADDR_ANY、htons
 #include &lt;arpa/inet.h&gt; // 提供IP地址转换函数 inet_addr,inet_aton
 #include &lt;sys/time.h&gt;
 #include &lt;sys/socket.h&gt; // socket 相关函数声明
-#include &lt;sys/select.h&gt; // struct fd_set 以及相关函数，select 函数
+#include &lt;sys/select.h&gt; // struct fd_set 以及相关函数，select 函数 FD_SETSIZE
 #include &lt;unistd.h&gt; // read write close
 #include &lt;map&gt;
 
