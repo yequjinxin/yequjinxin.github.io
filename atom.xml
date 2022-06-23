@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yequjinxin.github.io</id>
+    <title>MAZE</title>
+    <updated>2022-06-23T15:35:01.445Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://yequjinxin.github.io"/>
+    <link rel="self" href="https://yequjinxin.github.io/atom.xml"/>
+    <subtitle>你来时，花月正春风</subtitle>
+    <logo>https://yequjinxin.github.io/images/avatar.png</logo>
+    <icon>https://yequjinxin.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, MAZE</rights>
+    <entry>
+        <title type="html"><![CDATA[db 连接池]]></title>
+        <id>https://yequjinxin.github.io/post/lian-jie-chi/</id>
+        <link href="https://yequjinxin.github.io/post/lian-jie-chi/">
+        </link>
+        <updated>2022-06-23T08:22:12.000Z</updated>
+        <content type="html"><![CDATA[<p>从<strong>连接和请求</strong>的角度分析连接池。</p>
+<h3 id="短链接">短链接</h3>
+<p>连接:请求 = 1:1<br>
+以 php 实现的系统为例，浏览器每向 Web Server 发起一次请求，php 都需要和 DB 建立一次连接。<br>
+请求发起次数 = DB 建立连接次数</p>
+<p>每次请求都要建立连接，对于应用服务，有一个等待时间；对于 Mysql，有建立和销毁连接的系统开销。<br>
+更大的问题在高并发场景下，Mysql 会达到连接上限，出现错误”too many connections“，应用系统就瘫痪了。</p>
+<h3 id="长连接">长连接</h3>
+<p>连接:请求 = n:1<br>
+可以使用长链接（mysql_pconnect）解决 Mysql 的并发问题。</p>
+<p>在长连接下，php 的 worker 进程和 Mysql 进程间是持久连接，不存在瞬时大量创建销毁连接导致的问题。但是，这样又会引入一个新问题。</p>
+<p>为了满足高并发的压力，应用服务器采用负载均衡策略，我们以 20 台应用服务器举例，每台服务器 1000 个进程提供服务，这样就要建立 20000 的长连接。长连接等待数据的时间要远大于传输数据的时间，也就是说，这20000个长连接大部分时间都是处于闲置中（等待数据中），这对于 Mysql 资源是一种浪费。基于互联网应用的特点，只有 20% 的时间是繁忙的，这种做法也是不合理的。</p>
+<h3 id="连接池">连接池</h3>
+<p>连接:请求 = n:n<br>
+既能提高系统效率，又能高并发，就需要采用连接池的方案。</p>
+<p>连接池（Connection Pool）技术的核心思想是：连接复用，通过建立一个数据库连接池以及一套连接使用、分配、管理策略，使得该连接池中的连接可以得到高效、安全的复用，避免了数据库连接频繁建立、关闭的开销。</p>
+<p>相较于php，go 语言自带连接池。我们这里以 go 语言示例，展示连接池的使用。</p>
+<blockquote>
+<p>淘宝的早期是 php 实现的，当时使用了一个第三方开源的数据库中间件，但是中间件存在问题并无法解决，这样全站就转到了 java 语言。</p>
+</blockquote>
+<h4 id="示例">示例</h4>
+<pre><code class="language-go">
+db, _ := sql.Open(&quot;mysql&quot;, &quot;root:root@tcp(127.0.0.1:3306)/blog?charset=utf8&quot;) // Open 函数仅仅校验参数，并不会建立连接
+db.SetMaxOpenConns(200) // 和 db 能建立的最大连接数，默认0，小于等于0不限制
+db.SetMaxIdleConns(100) // 最大空闲连接数，默认2
+db.SetConnMaxLifetime(60*time.Minute) // 连接可用的时间，过后连接失效
+db.Ping()
+
+db.Query(&quot;SELECT * FROM blog_article limit 1&quot;) // 从空闲池中获取连接，进行查询
+
+</code></pre>
+<p>db.Query 申请以及释放连接的一个流程图，如下</p>
+<figure data-type="image" tabindex="1"><img src="https://yequjinxin.github.io/post-images/1655998489339.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mysql 索引]]></title>
+        <id>https://yequjinxin.github.io/post/io-zhi-mysql/</id>
+        <link href="https://yequjinxin.github.io/post/io-zhi-mysql/">
+        </link>
+        <updated>2022-06-20T10:17:47.000Z</updated>
+        <content type="html"><![CDATA[<p>本文主要从磁盘 I/O 角度来分析索引。</p>
+<h3 id="索引是什么">索引是什么</h3>
+<p>索引可以理解成一本书的目录，通过目录快速定位查阅的内容页。是一种用空间换取时间的策略，加快查询速度的方式。索引和数据都存储在磁盘中，查询数据的过程是先找索引，再根据索引读取数据。</p>
+<p>没有创建索引（如果没有primary key 或 non-null unique 字段，InnoDB 会默认生成一个默认6-byte的隐藏自增键，这里指没有创建Secondary Index，<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html">点击查看</a>），我们需要从第一行数据开始，遍历整张表，寻找相关的行。在Clustered Index中，糟糕的情况下，我们需要读取所有的节点来查找用户记录。</p>
+<p>那么索引的结构是什么？</p>
+<p><strong>如果是二叉树</strong>，会退化成链表，就又变成了全表遍历。</p>
+<p><strong>如果是红黑树</strong>（平衡二叉树），由于每个父节点只能存在两个子节点，记录数很大时，树的高度也会很大。其次，既然红黑树可以进行 rebalance，一个节点的改变会导致整棵树结构重建，这对于硬盘持久化存储是不可接受的。</p>
+<p><strong>如果是B-Tree</strong>（平衡多叉树），增加每个节点的索引值，也就是B-Tree的阶，从而降低了树的高度。<br>
+同时，节点不过分依赖整体树结构，从而更加独立，这样在树结构更新时比二叉树更加高效。</p>
+<!-- 但是非叶子节点会存储用户记录数据，这样会占用更多的空间，查询会导致更多I/O，以及在范围查找不能顺序获取用户记录数据。 -->
+<p>B-Tree 中的每个节点都包含 Key、Point、Data，这样导致的问题是，对于 DB 而言查找数据变得昂贵，一个固定大小的索引页如果包含了Data，能索引的值就变少，这样就需要更多的索引页，结果就是需要更多的I/O。</p>
+<p><strong>如果是 B+Tree</strong>，将节点分成了两种，叶子节点和非叶子节点（索引节点）<br>
+叶子节点的记录行（data rows）和非叶子节点的索引值（key-pointer对）的个数理论上没有限制，但所有叶子节点到根节点的距离是一致的。<br>
+为了方便范围查找，叶子节点会包含一个指向下一个叶子节点的指针，同时，叶子节点中的记录行（Record rows）也会包含一个指向下一个记录的指针。</p>
+<p>Mysql InnoDB 存储引擎使用的正是 B+Tree。</p>
+<hr>
+<h3 id="分表">分表</h3>
+<p>基于我们上面对索引数据结构的分析，可以通过增加单页的记录行数（垂直分表）以及降低索引层级（水平分表）来降低I/O。</p>
+<ul>
+<li>
+<p>垂直分表<br>
+将一张宽表，分成几张窄表。<br>
+一页只有16K，一条记录（最大65535byte）可能需要多个磁盘页的容量，最好是控制在半个磁盘页大小，也就是 8K，<a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-limits.html">点击了解</a>。即便如此，一页才能存储两条记录。我们可以通过降低一条记录长度，让一个磁盘页容纳更多的记录，以此来降低I/O。<br>
+垂直分表代价就是某些查询需要多操作（读、写）一次。</p>
+</li>
+<li>
+<p>水平分表<br>
+通过降低单表的数据量，来降低索引的层级，同时降低I/O。<br>
+相比垂直分表，水平分表代价比较大，会引入系统复杂度。比如，非 shardingkey 查询需要做数据聚合，可以通过数据库中间件，或者采用 ES 等全文索引数据库。</p>
+</li>
+</ul>
+<hr>
+<h4 id="什么时候水平分表">什么时候水平分表</h4>
+<p>InnoDB 存储引擎将所有的记录全部存储在固定大小节点中，我们通常叫做页，目前页默认大小为16KB，页由7个部分组成，<a href="https://dev.mysql.com/doc/internals/en/innodb-page-structure.html">点击了解 Mysql Page Structure</a>。当有新的记录要插入到聚集索引中，InnoDb 会为后面的数据预留1/16的页空间，<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html">点击了解</a>。</p>
+<p>大多时候，B+Tree 中的节点都是一页，非叶子节点对应索引页，叶子节点对应数据页。</p>
+<p>我们假设每页有14K存储数据（除去页的头和尾占用，以及1/16预留），一条用户记录长度 1K，<br>
+对于 16K 的页，索引Key的长度限制为 3072-byte，但是实际应用 Key 越短越好，我们以 bigint 8-byte 为例子，Pointer 以 6-byte 为例，key-pointer 对占用 14-byte。</p>
+<p>一个索引页包含的值的个数是<br>
+14 * 1024 / 14 = 1024<br>
+一个数据页包含的记录个数是<br>
+14 * 1024 / 1024 = 14</p>
+<p>如果是二级的B-Tree，能够容纳 1024 * 14 = 14336<br>
+如果是三级的B-Tree，能够容纳 1024 * 1024 * 14= 14680064<br>
+如果是四级的B-Tree，就是百亿级别了</p>
+<p>实际应用中，具体环境可能有差异，比如，更改页大小，单条记录的长度很大（可以垂直分表），会导致读取树的层级和节点数量变化，但是为了让 Mysql 保持良好性能，单表数据上千万就可以考虑分表了。</p>
+<hr>
+<p>参考文章</p>
+<ol>
+<li><a href="https://sqlity.net/en/2445/b-plus-tree/">B+Trees – How SQL Server Indexes are Stored on Disk</a></li>
+</ol>
+]]></content>
+    </entry>
+</feed>
